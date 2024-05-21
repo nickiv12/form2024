@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- Пример 1. Работа с localStorage. Подсчет кол-ва посещений страницы. -->
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Форма. Пример 1. Счетчик посещений</title>  <!-- -->
+    <style>
+      .page-width {
+        width: 800px;
+        border: 1px solid grey;
+      }
+      h3 {text-align: center;}
+    </style>
+  </head>
+
+<body class="page-width">
+  <h3>localStorage. Пример 1. Подсчет кол-ва посещений страницы.</h3>
+  <p>
+    На этой странице расположен пример подсчета количества посещений именно этой страницы.
+    В каждом из браузеров пользователя счетчик посещений свой.
+  </p>
+  <div>
+    <!-- Сюда пишем значение из localStorage.  -->
+    Вы посетили эту страницу: <span id="result"></span> раз.
+  </div>
+</body>
+<script>
+    // ==== ИЗУЧЕНИЕ localStorage.  ============
+     // Пример 1. Подсчет количества посещений страницы.
+    window.addEventListener('load', function() {
+        if (typeof(Storage) !== "undefined") {
+            console.log('1. Brauser suppot web-storage.');  // Браузер поддерживает
+
+            // Размещаем код примера.
+            // Проверяем существование ключа loadcount и упрвляем его значением.
+            let loadcount = localStorage.getItem('loadcount'); // Пытаемся получить значение.
+            if (loadcount === null) {  // Если страницу посетили в первый раз - такого ключа нет.
+                console.log(" Страницу посетили в первый раз.");
+                localStorage.setItem('loadcount', '1'); // Установаливаем стартовое значение.
+                console.log(' Значение loadcount установили', localStorage.getItem('loadcount'));
+            } else {
+                localStorage.loadcount = Number(localStorage.loadcount) + 1;  // Увеличили счетчик.
+                console.log(localStorage.loadcount);  // Записали новое значение в localStorage.
+            }
+
+            // Пишем значение ключа на страницу.
+            document.getElementById('result').innerHTML = localStorage.loadcount;
+
+
+        } else {
+            console.log("1. Brauser DON'T suppot web-storage.");
+        };
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<!-- ПРИМЕРЫ СОХРАНЕНИЯ РАЗЛИЧНЫХ ТИПОВ ДАННЫХ В localStorage -->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Форма 02. Типы данных в хранилище</title>  <!-- -->
+    <style>
+      .page-width {
+        width: 800px;
+        border: 1px solid grey;
+      }
+      h3 {text-align: center;}
+    </style>
+  </head>
+
+<body class="page-width">
+  <h3>Примеры работы с localStorage.</h3>
+  <p>
+    <ol><b>Описание:</b>
+      <li>Будем делать основные действия с хранилищем.</li>
+      <li>Будем рассматривать сохранение в localSrorage и получение из него различних типов данных.</li>
+      <li>Действия с localStorage осуществляется на JS, поэтому смотрим код в редакторе, результат 
+          смотрим в консоли.  
+      </li>   
+      <li>Для простоты работы данные будем брать из подготовленных нами JS переменных.</li>   
+      <li>Для работы, просто открываем файл и смотрим вывод результатов JS в консоль.</li>
+      <li>Файл примера кода: D:\GITREPOS\form2024\form02.html.</li>
+      <li>Конспект в файле: D:\КОНСПЕКТЫ ПО 2024\САЙТ для КОЛИ\ФОРМА ЛИЗА\02. Форма - web Storage.doc.</li>
+    </ol>
+
+    <ol>Делаем:
+      <li>Проверка поддерживается ли браузером механизм веб-хранилища .</li>
+      <li>Запись в localStorage одной пары: ключ-значение.</li>
+      <li>Три способа прочитать значение из хранилища.</li>
+      <li>Удаление ключа из хранилища и попытка получить его значение.</li>
+      <li>Работа с массивами в хранилище (JSON).</li>
+      <li>Работа с объектом в хранилище (JSON).</li>
+      <li>Исключение QUOTA_EXCEEDED_ERR. .</li>
+      <li>Функция подсчета объем данных в хранилище (кол-во символов) .</li>
+      <li>.</li>
+    </ol>
+  </p>
+</body>
+  <script>
+  // ==== ИЗУЧЕНИЕ localStorage. Типы данных для хранения ============
+    
+    // 1. ---  Проверка поддержки технологии Web-storage браузером. ----
+    if (typeof(Storage) !== "undefined") {
+        console.log('1. Brauser suppot web-storage.');
+    } else {
+        console.log("1. Brauser DON'T suppot web-storage.");
+    }
+
+    // 2.  --- Запись одной пары ключ-значение в хранилище  --- 
+    //    ключ: name, значение: Smith.
+    localStorage.setItem('name', 'Smith');
+
+    // 3.  ---  Читаем значения ключа из хранилища - 3 способа.  --- 
+    // a) По стандарту.
+    console.log(' 3.1. Читаем значение ключа так: localStorage.getItem("name"):', localStorage.getItem('name'));
+    // b) По имени ключа в хранилище.
+    console.log(' 3.2. Читаем значение ключа так: localStorage["name"]:', localStorage["name"]);
+    // с) По имени атрибута объекта (хранилища).
+    console.log(' 3.3. Читаем значение ключа так: localStorage.name:', localStorage.name);
+    
+    // 4.  --- Удаляем ключ из хранилища и пытаемся прочесть удаленный ключ.
+    localStorage.removeItem('name');
+    console.log(' 4. Пытаемся прочитать удаленный ключ "name":', localStorage.getItem('name'));
+
+    // 5. --- Создаем массивы в JS. ---
+    // 5a. Создаем массивы:
+    let lastname = ["Adams", "Brown", "Cooper", "Davis", "Evans"];  // Список фамилий.
+    let hours = [1, 2, 3, 4, 5]; // Отработанные часы.
+
+    // Смотрим массивы в консоли.
+    console.log("5a. Массив фамилий (lastname):", lastname);
+    console.log("5a. Массив часов (hours):", hours);
+    
+    // 5b. Преобразуем массивы в JSON смотрим что получилось.
+    const lname = JSON.stringify(lastname);
+    console.log('5b. Преобразуем "lastname" в JSON', lname);
+    const lhours = JSON.stringify(hours);
+    console.log('5b. Преобразуем "hours" в JSON', lhours);
+
+    // 5c. --- Пишем JSON-массива в localStorage и читаем оттуда.  ------
+    localStorage.setItem('lname', lname);
+    localStorage.setItem('lhours', lhours);
+    console.log('5c. Читаем JSON lastname из localStorage:', localStorage.getItem('lname'));
+    console.log('5c. Читаем JSON hours из localStorage:', localStorage.getItem('lhours'));
+
+    // 5d. --- Преобразуем JSON массивы в JS массивы. ----
+    const lastnameFromLs = JSON.parse(localStorage.getItem('lname'));
+    console.log('5d. Массив lastname полученный :', lastnameFromLs);
+    const hoursFromLs = JSON.parse(localStorage.getItem('lname'));
+    console.log('5d. Массив hours полученный :', hoursFromLs);
+    
+    // 6. --- Работа с объектами в хранилище. ----
+    //   6a.  Создаем объект.
+    let obj = {};  // Создаем пустой JS-объект с помощью литерала.
+    // Создаем ключ и присваиваем ему значение (массив).
+    obj.name = lastname;  // ключ и  имя массива разные понятия - можно использоать одинаковые имена.
+    obj.hour = hours;
+    console.log(" Объект obj:", obj);  // Смотрим объект в консоли.
+
+    // 6b. Проебразовываем объект в JSON.
+    const objJSON = JSON.stringify(obj);
+    console.log(" 6b. Объект в JSON", objJSON);
+
+    // 6c. Записываем объект в localStorage.
+    localStorage.setItem("lobj", objJSON);
+
+    // 6d. Получаем объект из хранилища.
+    let objFromLs = localStorage.getItem("lobj");
+    console.log("6d. Получаем строку объекта из хранилища:", objFromLs);
+
+    // 6e. Преобразовываем JSON  в JS-объект.
+    let objNew = JSON.parse(objFromLs);
+    console.log("6e. Смотрим восстановленный объект из хранилища", objNew);
+
+    // 7. Получаем количество пар ключ-значение в хранилищею
+    console.log('7. Кол-во пар ключ-значение', localStorage.length);
+
+    // 8. Исключение QUOTA_EXCEEDED_ERR - при переполнении хранилища
+    // Проверка есть ли возможность записать данные в хранилище.
+    try {
+        localStorage.setItem('key', 'value');
+        console.log('8. Хранилище еще не заполнене. Данные записаны');  
+      } catch (e) {
+        if (e == QUOTA_EXCEEDED_ERR) {  // Исключение если недостаточно места.
+         alert('8. Превышен лимит');
+        }
+      }
+
+
+    // 9. Функция, подсчитывающая количество символов в localStorage для домена.
+    function getLocalStorageSize() {
+      let totalSize = 0;  // Инициализируем счетчик символов.
+      for (let i = 0; i < localStorage.length; i++) {  // Перебираем ВСЕ ключи хранилища.
+          let key = localStorage.key(i);  // Получаем имя ключа.
+          let value = localStorage.getItem(key);  // Получаем значение ключа
+          totalSize += key.length + value.length;  // Добавляем кол-во символов в ключе и в значении.
+          console.log('9. Имя ключа:', key, ", Значение:", localStorage.getItem(key));
+      }
+      return totalSize;
+    }
+
+    let size = getLocalStorageSize();
+    console.log('9. Общий объем данных в localStorage: ' + size + ' символов');
+
+  </script>
+</html>
+
