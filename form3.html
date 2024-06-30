@@ -36,6 +36,7 @@
             // Проверяем существование ключа loadcount и упрвляем его значением.
             let loadcount = localStorage.getItem('loadcount'); // Пытаемся получить значение.
             if (loadcount === null) {  // Если страницу посетили в первый раз - такого ключа нет.
+            // if (!loadcount) {  // Очень интересно: Если null, underfind, пустая строка..
                 console.log(" Страницу посетили в первый раз.");
                 localStorage.setItem('loadcount', '1'); // Установаливаем стартовое значение.
                 console.log(' Значение loadcount установили', localStorage.getItem('loadcount'));

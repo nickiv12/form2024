@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<!-- ПРИМЕРЫ СОХРАНЕНИЯ РАЗЛИЧНЫХ ТИПОВ ДАННЫХ В localStorage -->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>05.Форма. Пример 3</title>  <!-- -->
+    
+    <!-- Внешние файлы  -->
+    <link rel="stylesheet" type="text/css" href="form05.css" />
+  </head>
+
+<body class="page-width">
+  <h3> Пример формы с сохранение данных и восстановлением их из хранилища. </h3>
+  <ol>Описание.
+    <li>При клике на кнопку "Добавить строки с данными", с помощью js будут добавлены 5 строк
+        с заполненными даннными взятыми из тех же массивов. 
+    </li>
+    <li>При обновлении данных они не пропадут т.к. будут записаны в хранилище и 
+        воссановлены оттуда.
+    </li>
+    <li></li>
+    <li></li>
+  </ol>
+  <form id="employeesForm">
+    <h3>Форма для распределения чаевых между сотрудниками</h3>
+          
+    <!-- Период расчета -->
+    <div>
+        Дата расчета с <input type="data"> 
+    </div>
+    <p></p> <!-- Чтобы визуально разделить блоки  -->
+      
+    <!-- ========= ТАБЛИЦА С ДАННЫМИ =============== -->
+    <table id="waiters">
+      <!-- Заголовок табличной части с помощью table  -->
+      <thead>
+        <tr>
+          <th class="col-1">№</th>
+          <th class="col-2">Lastname</th>
+          <th class="col-3">Hours</th>
+          <th class="col-4">Index</th>
+          <th class="col-5">Sum</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Строки будут вставлены при нажатии на кнопку "Добавить строки с данными". -->
+
+      </tbody>
+      <tfoot>
+        <tr>
+          <!-- Я смог задать стили ТОЛЬКО записав их прямо в тег -->
+          <td colspan="5" id="info" style="color: red; text-align: center;">llll</td>
+        </tr>        
+      </tfoot>
+      
+    </table>
+    <p></p> <!-- Чтобы визуально разделить блоки  -->
+    <p><button type="button" id="addRows">Добавить строки с данными.</button></p>
+    <p><button type="button" id="addToLocal">Отправить данные в localStorage </button></p>
+      </form>  <!-- Конец ФОРМЫ -->
+</body>
+
+<script>
+
+// 5. ---- Получаем данные из формы при обновлении страницы
+  window.addEventListener('DOMContentLoaded', function() {
+    // 5.1. Проверяем, что браузер поддерживает технологию.
+    if (typeof(!Storage)) {  // вар.1  Подерживает underfined, null,
+    // if (typeof(Storage) !== "undefined") { // вар.2 Только undefined
+        console.log('1. Brauser suppot web-storage.');  // Браузер поддерживает
+
+        // 5.2. Пытаемся получить данные из хранилища.
+        const dataInStorage = localStorage.getItem("data_2");  // Фамилиии - база для всего.
+        
+        // Если данные о фамилиях есть, то получем данные обо всем.
+        if (dataInStorage ) {
+          getFromLs();  // Функция получает данные из хранилища и пишет в tbody. 
+        } else { 
+          console.log(" Хранлище пустое. ");
+        }
+        } else {
+      console.log("1. Brauser DON'T suppot web-storage.");  // Не поддерживает
+      };
+    });  // КОНЕЦ 5. Обработчик при загрузке страницы.
+
+  // 5.1. Функция получает данные из хранилища и записывает данные в таблицу.
+  // a) Получаю данные из localStorage
+  function getFromLs() {
+    // Получаем количество строк на основе колонки 2
+    const d_2 = JSON.parse(localStorage.getItem("data_2"));
+    const d_3 = JSON.parse(localStorage.getItem("data_3"));
+    const d_4 = JSON.parse(localStorage.getItem("data_4"));
+    const d_5 = JSON.parse(localStorage.getItem("data_5"));
+        // Строки добавляем в цикле.
+    for (let i = 0; i < d_2.length; i++) {
+      // Готовим строку для добавления в tbody.
+      let rowHTML = `
+        <tr>
+          <td  class="col-1">${[i+1]}</td>
+          <td  class="col-2">${d_2[i]}</td>
+          <td  class="col-3"><input type="number" name="hours" value='${d_3[i]}'></td>
+          <td  class="col-4"><input type="number" name="index" value='${d_4[i]}'></td>
+          <td  class="col-5"><input type="number" name="sum" value='${d_5[i]}'"></td>
+        </tr> 
+        `;
+        const tbody = document.querySelector('tbody'); // Получаем tbody.
+        tbody.innerHTML += rowHTML; // Дописываем строку в tbody.
+    }  // конец цикла для строк.
+  };  // КОНЕЦ 5.1
+
+
+//   --- 4. Отправляем данные в форму по клику.
+  // 4.1. Получаем ссылку на обработчик клика Отправить данные в localStorage.
+  const add = document.getElementById("addToLocal");
+  add.addEventListener('click', addToLocal);
+
+  // 4.2. Функция собирает данные из формы и отправляет в localStorage.
+  function addToLocal() {
+    // a) Получаем данные из колонок таблицы.
+    const col_2 = document.querySelectorAll('td.col-2'); // lastname
+    var data_2= Array.from(col_2).map(col_2 => col_2.textContent);// Значения в массив
+    console.log(data_2);
+    
+    const col_3 = document.querySelectorAll('td.col-3'); // hours.
+    var data_3= Array.from(col_3).map(col_3 => col_3.querySelector('input').value);// Значения в массив
+    console.log(data_3);
+
+    const col_4 = document.querySelectorAll('td.col-4'); // hours.
+    var data_4= Array.from(col_4).map(col_4 => col_4.querySelector('input').value);// Значения в массив
+    console.log(data_4);
+
+    const col_5 = document.querySelectorAll('td.col-5'); // hours.
+    var data_5= Array.from(col_5).map(col_5 => col_5.querySelector('input').value);// Значения в массив
+    console.log(data_5);
+
+    // b) Преобразуем массивы в JSON и записываем в localStorage.
+    localStorage.setItem("data_2", JSON.stringify(data_2));
+    localStorage.setItem("data_3", JSON.stringify(data_3));
+    localStorage.setItem("data_4", JSON.stringify(data_4));
+    localStorage.setItem("data_5", JSON.stringify(data_5));
+  };  // --- КОНЕЦ 4.Отправляем данные в форму по клику.
+
+
+
+// 3. --- Управляем показом в теге "info" в зависимомти от кол-ва строк в tbody ----.
+  // 3.1. Получаем доступ к элементам таблицы. 
+  const tbodyElement = document.querySelector('tbody'); // Доступ к tbody 
+  const tfootElement = document.querySelector('tfoot'); // Получаем доступ к  tfoot
+  const info = tfootElement.querySelector('#info'); // Получаем доступ к ячейке с id="info" в tfoot.
+
+  // 3.2. Создаем объект наблюдающий за мутациями в DOM.
+  const mutationObserver = new MutationObserver((mutations) => {
+    
+    // Перебираем в цикле атрибуты  объекта мутации.
+    for (const mutation of mutations) {
+      if (mutation.type === 'childList') {  // Если тип атрибута childlist.
+        updateRowCount();  // Вызываем функцию получения кол-ва строк + запись в info.
+      }
+    }
+  }); // Конец 3.2.объект наблюдения.
+
+  // 3.3. !!! Метод  объекта наблюдения (observe)с опцией наблюдения childList .
+  mutationObserver.observe(tbodyElement, { childList: true });
+
+  // 3.4. Объявляем функцию, получающую кол-во строк tr в tbody + запись в info.
+  function updateRowCount() {
+    // Узнаем количество строк в tbody.
+    const rowCount = tbodyElement.querySelectorAll('tr').length;
+    if (rowCount === 0) {  // Если строк нет.
+      info.textContent = "Чтобы добавить в таблицу строки, нажмите кнопку  <Добавить строки с данными>.";
+    } else {  // Если строки есть.
+      info.textContent = '';  // Текста в tfoot в ячейке с id="info" нет.
+    }
+  }
+
+// 3.4. инициализируем, чтобы все надежно работало.
+updateRowCount();  // Функция получает кол-во строк tr в tbody + запись в info.
+// --- КОНЕЦ 3.
+
+  // 2. --- Вешаем обработчик на кнопку "Добавить строки с данными". ---
+  const addRows = document.getElementById('addRows');
+  addRows.addEventListener('click', function() {
+    
+    // Цикл добавляющий строки.
+    for (let i = 0; i < lastname.length; i++) {
+      // console.log(lastname[i], hours[i], index[i]);
+      
+      // Готови строку для добавления в tbody.
+      let rowHTML = `
+        <tr>
+          <td  class="col-1">${[i+1]}</td>
+          <td  class="col-2">${lastname[i]}</td>
+          <td  class="col-3"><input type="number" name="hours" value='${hours[i]}'></td>
+          <td  class="col-4"><input type="number" name="hours" value='${index[i]}'></td>
+          <td  class="col-5"><input type="number" name="index"></td>
+        </tr> 
+        `;
+        const tbody = document.querySelector('tbody'); // Получаем tbody.
+        tbody.innerHTML += rowHTML;
+    }  // Конец цикла.
+  }); // --- КОНЕЦ 2.
+
+  // 1. --- Создаем массивы данных для записи в таблицу, чтобы не заполнять самому. ---
+  const lastname = ["Adams", "Brown", "Cooper", "Davis", "Evans"];  // Список фамилий.
+  const hours = [1, 2, 3, 4, 5]; // Отработанные часы.
+  const index = [1, 2, 3, 4, 5]; // Коэффициент трудового участия
+  // Массив для sum не  создаем они появятся в результате расчета или заполнеия пользователем.
+  // --- КОНЕЦ 1. 
+
+</script>
+</html>

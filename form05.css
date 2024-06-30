@@ -1,0 +1,68 @@
+.page-width {
+    width: 800px;
+    border: 1px solid grey;
+  }
+  h3 {text-align: center;}
+
+/* ==== Стили Формы для расчета ===================== */
+#employeesForm {
+    width: 600px;  /* Ширина таблицы */
+    border: 1px solid red;
+	position: relative;  /* Чтобы все потомки имели тот же z-index */
+    z-index: 3;
+    background-color: white;  /* Принудительно задаем фон, иначе просвечивает справочник */
+	}
+/* Наследуем свойство z-index для всех потомков */
+#employeesForm * { z-index: inherit;}
+
+/* Загловок формы */
+#employeesForm h3 {text-align: center;}
+
+/* ==== Стили таблиц ===================== */
+/* Таблица общее */
+ #waiters {
+    width: 500px;  /* Ширина таблицы */
+    border-collapse: collapse;
+    margin-left: 20px;
+
+    }
+/* Загловок таблицы */
+#waiters > thead {
+    color: rgb(213, 226, 252);
+    background-color: grey;
+	}
+
+/* #waiters th { width: 60px; } */
+
+/* ---- Стили колонок: ширина ----- */
+/* Ширина ячейки определяется ее содержимым */
+/* Свойство nth-child() на ширину не влияет */
+
+/* Ширина ячеек в колонках таблицы */
+th.col-1 {width: 30px;}
+th.col-2 {width: 150px;}
+th.col-3, td.col-3 {width: 70px; text-align: center;}
+th.col-4, td.col-4 {width: 70px; text-align: center;}
+th.col-5, td.col-5 {width: 70px; text-align: center;}
+
+/* 1-я колонка:№ (нномер по пораядку) */
+#waiters td:nth-child(1) {
+	color: black;
+    text-align: right;
+    }
+
+/* Ширину инпутов надо ОБЯЗАТЕЛЬНО задавать, т.к. по умолчанию они шире */
+/* А ширина ячейки определяется ее содержимым и будет увеличивать ширину ячейки */
+#waiters td:nth-child(3) > input { width: 50px; }
+#waiters td:nth-child(4) > input { width: 50px; }
+#waiters td:nth-child(5) > input { width: 50px; }
+
+/* Цвет в футере */
+tfoot td:nth-child(1) {
+    color: red;
+    }
+
+#waiters tr td input {
+    width: 100px;
+    margin: auto;
+}

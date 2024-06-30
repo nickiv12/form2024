@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<!-- ПРИМЕРЫ СОХРАНЕНИЯ РАЗЛИЧНЫХ ТИПОВ ДАННЫХ В localStorage -->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>04.Форма Типы данных в хранилище</title>  <!-- -->
+    
+    <!-- Внешние файлы  -->
+    <link rel="stylesheet" type="text/css" href="form04.css" />
+  </head>
+
+<body class="page-width">
+  <h3> Форма с большим количеством данных демонстрирует как легко исчезают данные. </h3>
+  <ol>Описание.
+    <li>Форма предварительно заполнена строками.</li>
+    <li>В колонке Lastname первые буквы алфавита записаны в тег td.</li>
+    <li>В инпуты никакие данные не внесены. </li>
+    <li>При клике на кнопку "Заполнить форму данными", строки формы будет заполнена данными
+      взятыми из предварительно подготовленных JS массивов.
+    </li>
+    <ul>
+      <li>Поля колонки Lastname изменить нельзя. Они записаны в ячейки таблицы.</li>
+      <li>Данные в инпутах можно изменять</li>
+      <li>При обновлении страницы введенные данные будут утеряны безвозвратно.</li>
+    </ul>
+    <li>При клике на кнопку "Добавить строки с данными", с помощью js будут добавлены 5 строк
+        с заполненными даннными взятыми из тех же массивов. С этими строками то же самое - все 
+        добавленное пользовтелем или js при обновлении пропадет.
+    </li>
+  </ol>
+  <form id="employeesForm">
+    <h3>Форма для распределения чаевых между сотрудниками</h3>
+          
+    <!-- Период расчета -->
+    <div>
+        Период расчета с <input type="date"> по <input type="date">
+    </div>
+    <p></p> <!-- Чтобы визуально разделить блоки  -->
+      
+    <!-- ========= ТАБЛИЦА С ДАННЫМИ =============== -->
+    <table id="waiters">
+      <!-- Заголовок табличной части с помощью table  -->
+      <thead>
+        <tr>
+          <th class="col-1">№</th>
+          <th class="col-2">Lastname</th>
+          <th class="col-3">Hours</th>
+          <th class="col-4">Index</th>
+          <th class="col-5">Sum</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Пять пустых строк для заполнения данными. -->
+        <tr>
+          <td class="col-1">1</td>
+          <td class="col-2">a</td>
+          <td class="col-3"><input type="number" name="hours"></td>
+          <td class="col-4"><input type="number" name="index"></td>
+          <td class="col-5"><input type="number" name="sum"></td>
+        </tr>
+        <tr>
+          <td class="col-1">2</td>
+          <td class="col-2">b</td>
+          <td class="col-3"><input type="number" name="hours"></td>
+          <td class="col-4"><input type="number" name="index"></td>
+          <td class="col-5"><input type="number" name="sum"></td>
+        </tr>
+        <tr>
+          <td class="col-1">3</td>
+          <td class="col-2">c</td>
+          <td class="col-3"><input type="number" name="hours"></td>
+          <td class="col-4"><input type="number" name="index"></td>
+          <td class="col-5"><input type="number" name="sum"></td>
+        </tr>
+        <tr>
+          <td class="col-1">4</td>
+          <td class="col-2">d</td>
+          <td class="col-3"><input type="number" name="hours"></td>
+          <td class="col-4"><input type="number" name="index"></td>
+          <td class="col-5"><input type="number" name="sum"></td>
+        </tr>
+        <tr>
+          <td class="col-1">5</td>
+          <td class="col-2">e</td>
+          <td class="col-3"><input type="number" name="hours"></td>
+          <td class="col-4"><input type="number" name="index"></td>
+          <td class="col-5"><input type="number" name="sum"></td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <!-- Я смог задать стили только записав их прямо в тег -->
+          <td colspan="5" id="info" style="color: red; text-align: center;">llll</td>
+        </tr>        
+      </tfoot>
+      
+    </table>
+    <p></p> <!-- Чтобы визуально разделить блоки  -->
+    <p><button type="button" id="fillForm">Заполнить форму данными.</button></p>
+    <p><button type="button" id="addRows">Добавить строки с данными.</button></p>
+      </form>  <!-- Конец ФОРМЫ -->
+</body>
+<script>
+
+  // Массивы данных для записи в таблицу.
+  const lastname = ["Adams", "Brown", "Cooper", "Davis", "Evans"];  // Список фамилий.
+  const hours = [1, 2, 3, 4, 5]; // Отработанные часы.
+  const index = [1, 2, 3, 4, 5]; // Коэффициент трудового участия
+  //const hours = ['1', '2', '3', '4', '5'];  Отработанные часы.
+  // const index = ['1', '2', '3', '4', '5'];  Коэффициент трудового участия.
+  // Сумму не  заполняем, она должна появиться в результате расчета.
+
+
+  // 1. --- Вешаем обработчки на кнопку "Заполнить форму данными".
+  const fill = document.getElementById("fillForm");
+  fill.addEventListener('click', function() {
+    
+    // Получаем  ячейки во 2-й колонках таблицы.
+    const cells_2 = document.querySelectorAll('td.col-2');  
+    // Получаем инпуты сгруппированные по именам.
+    const inputs_3 = document.querySelectorAll('input[name="hours"]');  
+    const inputs_4 = document.querySelectorAll('input[name="index"]');  
+
+    let i = 0;
+    // Заполняем ячейки фамилиями из массива.
+    for (const cell_2 of cells_2) {
+      cell_2.textContent = lastname[i];
+      i++;
+    }
+    
+    // Заполняем инпуты hours значениями  из массива hours
+    let j = 0;
+    for (const input_3 of inputs_3) {
+      input_3.value = hours[j];
+      j++;
+    }
+
+    // Заполняем инпуты index значениями  из массива index
+    let k = 0;
+    for (const input_4 of inputs_4) {
+      input_4.value = index[k];
+      k++;
+    }
+
+  });
+  // console.log(fillForm);
+
+
+  // 2. --- Вешаем обработчик на кнопку "Добавить строки с данными".
+  const addRows = document.getElementById('addRows');
+  addRows.addEventListener('click', function() {
+    // Цикл добавляющий строки.
+    for (let i = 0; i < lastname.length; i++) {
+      console.log(lastname[i], hours[i], index[i]);
+      // Готови строку для добавления в tbody.
+      let rowHTML = `
+        <tr>
+          <td  class="col-1">${[i+1]}</td>
+          <td  class="col-2">${lastname[i]}</td>
+          <td  class="col-3"><input type="number" name="hours" value='${hours[i]}'></td>
+          <td  class="col-4"><input type="number" name="hours" value='${index[i]}'></td>
+          <td  class="col-5"><input type="number" name="index"></td>
+        </tr> 
+        `;
+        const tbody = document.querySelector('tbody'); // Получаем tbody.
+        tbody.innerHTML += rowHTML;
+    }
+  });
+
+  // Проба записи информации в  tfoot.
+  const info = document.getElementById('info');
+  info.textContent = 'В таблице еще нет записей.';
+
+</script>
+</html>
