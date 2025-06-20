@@ -1,0 +1,294 @@
+  /* 0. ----  Базовые стили для ВСЕГО сайта ----  */
+html {
+  box-sizing: border-box; /* ширина и высота = content+border+padding. */
+    font-family: "Times New Roman", serif;
+/*  font-family: Arial,"Helvetica CY", "Nimbus Sans L",  sans-serif;*/
+    font-size: 18px;  /* Базовый размер шрифта */
+/*  line-height: 1.4;  Межстрочный интервал */
+
+}
+/* Теперь ВСЕ  элементы БУДУТ наследовать  box-sizing от родителя - от тэга html */
+/* Источник:  https://ymatuhin.ru/front-end/better_box_sizing */
+*, *:before, *:after {
+    box-sizing: inherit;
+}  /* Конец базовых стилей сайта */
+
+
+
+body {
+    margin: 0px;
+    /* background-color: #E7E7E7; Фоновый цвет сайта*/
+    }
+/* Стили контейнера сайта */
+.container {
+    width: 100%;
+    margin: 0 auto;
+    min-height: 500px;
+    }
+
+/* --- Стили заголовка всего сайта ---- */
+/* Логотип */
+header.logo {
+    margin: 0 auto;
+/*    height: 70px;*/
+    background-color: #295151;
+    color: #F2F4D2;  /* Цвет шрифта логотипа и  пунктов меню */
+		padding-bottom: 5px;  /* Отступ внизу */
+    }
+/* Текст в логотипе */
+.center {
+		display: block;
+		text-align: center;
+}
+
+/* --- Главное меню 2-х колоночного сайта --- */
+#nav-main {
+    display: flex;
+    justify-content: space-around;  /* Пункты меню равномерно по ширине */
+/*		display: none;*/
+    }
+/* Пункты главного меню */
+.nav-item {
+    cursor: pointer;
+    }
+
+/* --- Стили иконки из полосок на открытие меню для смартфона ---- */
+#nav-smart-open {
+/*	border: 1px solid red;*/
+	margin-left: 20px;
+	width: 20px;
+/*	height: 20px;*/
+	cursor: pointer;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	display: none;  /* Скрываем для 2-х кол.сайта */
+/*	margin-bottom: 5px;*/
+	}
+/* Полоски иконки  */
+.string {
+	height: 2px;
+	margin-top: 4px;
+	background-color: white;
+	}
+
+/* ===== Стили 2-х колоночной части сайта ======================= */
+/* --- Главная часть --------- */
+main {
+    color: #1A3A85; /*  Цвет шрифта для обоих колонок  */
+    display: flex;  padding: 1px;  /* 2-е колонки рядом */
+    justify-content: space-between;  /* Колонки прижаты к разным сторонам*/
+    }
+/* Стили левой колонки */
+.left {  
+    width: 73%;  /* Ширина */
+    padding: 0% 3%;  /* Отступ сверхуи снизу 0,  слева и справа 3%*/
+    background-color: #E7E7E7; /* Цвет левой части сайата */
+    }
+/* Стили правой колонки */
+.right { 
+    width: 27%;
+    background-color: #E7E7E7; 
+    padding: 0% 1%;  /* Отступ сверхуи снизу 0,  слева и справа 3%*/
+    }
+
+/* ===== 2024 Навигация по странице ======= */
+/* ==== Вариант оформления без главного конт. === */
+/* Стиль позиционировани менюшек */
+.nav-position {
+	position: fixed;
+  top: 70px;
+	right: 30%;
+}
+/* Стиль оформления менюшек */
+.nav-decor {
+	z-index: 10;  /* Поверх других элементов */
+	font-size: 0.8rem;  /* Размер шрифта относительно */
+  padding: 2px;
+  border-radius: 5px;  /*радиус углов  */
+  border: 1px solid #295151;  /*  рамка блока */
+   /*  border: 1px solid #bbb; рамка блока */
+  background-color: rgba(246, 246, 246, 1.0); /*Цвет ФОНА свернутого меню */
+  box-shadow: inset 0 0 10px #BABABA; /*ВНУТРЕННЯЯ ТЕНЬ для всех  браузеров кроме ИЕ8 и опера-мини */
+}
+
+/* --- Раскрытое оглавление страницы. ---- */
+#toc-page {
+	width: 250px;  /* Указывать абс. значение */
+/*	display: none;*/
+}
+
+#toc-h4 { /* наименование оглавления */
+  margin: 0;  /*Убираем magin браузера */
+  padding-top: 5px; /* Делаем отступ текста сверху */
+  text-align: center;
+}
+#toc-ol { /* Нумерованный список */
+  margin: 0; /* Убираем отступы */
+  padding-left: 20px; /* Уменьшаем т.к. в браузере Chrome по умолчанию 40px */
+}
+#toc-ol li { /* Нумерованный список */
+  padding: 2px; /* увеличил расстояние между ссылками, чтобы удобнее нажиать */
+	color: #295151;
+}
+/* --- Скрытое оглавление страницы. --- */
+/* Контейнер для стрелки вниз */
+#toc-small {
+	font-size: 0.7rem;  /* Высоат */
+	width: 40px;
+	opacity: 0.6;  /* Прозрачность */
+	cursor: pointer;
+/*	display: none;*/
+/*	border: 1px solid red;*/
+	}
+/* Стрелка вниз - треугольник CSS */
+.triangle-down { 
+	font-size: 0.5rem;  /* Размеры стрелки */
+  /*display: inline-block;  Чтобы разместить стрелку ВНУТРИ родителя */
+	float: right; /* Прижимаем вправо родителя*/
+  margin-top: 2px;  /* Сдвигаем в центр по высоте*/ 
+	margin-right: 2px;
+	/* Размеры треугольника */
+  border-left: 0.5em solid transparent;
+  border-right: 0.5em solid transparent;
+  border-top: 1.0em solid #295151;
+	}
+
+/* Стрелка вверх - треугольник CSS */
+.triangle-top { 
+	cursor: pointer;
+	font-size: 0.5rem;  /* Размеры стрелки */
+  display: inline-block; /* Чтобы разместить стрелку ВНУТРИ родителя */
+	float: right; /* Прижимаем вправо родителя*/
+  margin-top: 2px;  /* Сдвигаем в центр по высоте*/ 
+	margin-right: 2px;
+	/* Размеры треугольника */
+  border-left: 0.5em solid transparent;
+  border-right: 0.5em solid transparent;
+  border-bottom: 1.0em solid #295151;
+	}
+
+/* --- СТИЛИ показывать элемент или нет */
+.toc-show {display: block;} /* Показывать элемент */
+.toc-show-none {display: none;} /* Скрывать элемент */
+
+
+
+/* ========= СТИЛИ СТАТЬИ =========================================== */
+/* аголовок статьи */
+header > h1 {
+    text-align: center;
+    font-size: 1.2rem;  /* Размер шрифта от html. */
+    color: #1A3A85;  /* Пока такой же как цвет шрифта всего текста */
+    margin-top: 0.4rem;  /* Отступ сверху в 0 */
+    margin-bottom: 0;  /* Отступ снизу */
+/*    border: 1px solid red;*/
+    }
+
+/* Любой параграф */
+article > p {
+    text-align: justify;  /* Выравнивание текста по всей ширине */
+    text-indent: 3%;  /* Красная первая строка */
+    margin-top: 0.3rem;  /* Отступ сверху в 0 */
+    margin-bottom: 0;  /* Отступ снизу */
+/*    border: 1px solid red;*/
+    }
+/* Заголовок раздела статьи */
+article > h2.part {
+    text-align: center;
+    color: #295151;
+    font-size: 1.1rem;  /* Размер шрифта от html. */
+    margin-top: 0.3rem;  /* Отступ сверху в 0 */
+    margin-bottom: 0;  /* Отступ снизу */    
+/*    border: 1px solid red;*/
+    }
+
+/* ----- Подраздел раздела статьи ----- */
+article > h3.subpart {
+    text-align: left;
+    font-size: 1rem;  /* Размер шрифта от html. */
+    margin-top: 0.2rem;  /* Отступ сверху в 0 */
+    margin-bottom: 0;  /* Отступ снизу */
+/*    border: 1px solid red;*/
+    }
+
+/* Параграф подраздела в статье */
+article > p.sub-p {
+    padding-left: 1.7rem ;
+    text-indent: 0;  /* Убираю красную строку */
+    margin-top: 0px ;
+/*    border: 1px solid red;*/
+    }
+
+
+/* ---- Список в статье ---- */
+/* Заголовок списка  */
+span.ol-span {
+     margin-left: -0.9rem;  /* Сдвигаем влево  */
+    font-weight: 600;  /* Выделяем жирным */
+    }
+/* Список */
+article > ol.sub-ol {
+    list-style-position: outside; /* Маркер снаружи списка */
+    list-style-type: lower-alpha;
+    padding-left: 2.5rem;
+    margin-top: 0.3rem;
+    margin-bottom: 0;  /* Отступ снизу */
+/*    border: 1px solid red;*/
+    }
+/* Низ списка */
+p.sub-p > li {
+    margin-bottom: 0.3rem;  /* Отступ снизу */
+    }
+
+
+footer {
+    min-height: 100px;
+    border: 1px solid grey;
+    background-color: grey;
+    text-align: center;
+    color: #082056;
+    }
+
+/* ---  Автонумерация разделов и подразделов статьи --- */
+body {  /* в body  создаем 1-й счетчик для разделов */
+  counter-reset: part /* Создаем счетчик, от слова partition */
+  }
+h2.part {
+  counter-reset: subpart 0;  /* В каждом теге с классом ЗАНОВО создаем новый 2-й счетчик. */
+  counter-increment: part 1;  /* Увеличиваем 1-й счетчик */
+  text-align: center;  /* Выравниваем по центру */
+  }
+h2.part::before {
+    content: counter(part) ". ";
+    }
+h3.subpart::before {
+     counter-increment: subpart 1;  /* Указываем число для увеличения */
+     content: counter(part) "." counter(subpart) ".";  /* Автономер подраздела */
+     color: #874444;  /* Цвет автонумерации */
+     }
+
+ /* ---- Media Query. Должны быть ниже всех, чтобы сработало ------------  */
+ /* Стили для устройств с которым работают пальцами (смартфоны, планшеты.  */
+ @media (hover: none) and (pointer: coarse) {
+	 .left { width: 100%; }  /* Ширина левой колонки */
+	 .right { display: none; }  /* Убираем правую колонку */
+	 #nav-main { display: none;} /* Убыираем большую навигацию */	 
+	 #nav-smart-open { display: flex;}
+	 html {font-size: 16px;}   /* Уменьшаю размер основного шрифта с 18 до 16  */
+	/* Позиция оглавления для одной колонки */
+	 #toc-page, #toc-small { right: 3%; }  
+}  /* --- КОНЕЦ @media */
+
+/* Для десктопа, если пользователь уменьшит ширину вкладки браузера  */
+@media screen and (max-width: 900px)  {
+   .left { width: 100%; }  /* Ширина левой колонки */
+   .right { display: none; }  /*  */
+		
+		/* Позиция оглавления для одной колонки */
+		#toc-page, #toc-small { right: 3%; }
+		/* --- Показываем навигацию для смартфона --- */
+		 #nav-main { display: none;} /* Убыираем большую навигацию */	
+			#nav-smart-open {display: flex; }
+	
+	 }  /* --- КОНЕЦ @media */
