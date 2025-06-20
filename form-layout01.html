@@ -1,19 +1,23 @@
 <!DOCTYPE html>
-<html lang="ru">
-<!-- Основана на ШАБЛОН САЙТА 2024 D:\GITREPOS\layouts2024\layout01.html -->
-<!--  -->
+<html lang="ru">  <!-- -->
+<!-- КАЛЬКУЛЯТОР РАСПРЕДЕЛЕНИЯ ЧАЕВЫХ МЕЖДУ СОТРУДНИКАМИ -->
+<!-- Основан на ШАБЛОНЕ САЙТА 2024
+       - D:\GITREPOS\layouts2024\layout01.html 
+       - https://nickiv12.github.io/form2024/form-layout01.html
+-->
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-	<link rel="stylesheet" type="text/css" href="css01.css" />
-	<link rel="icon" href="favicon.ico">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <link rel="stylesheet" type="text/css" href="css01.css" />
+  <link rel="icon" href="favicon.ico">
   <title>Шаблон.</title>
 </head>
 <body>
 	<div class="container">  <!-- Контейнер всего сайта -->
-		<header class="logo">  <!-- Заголовок всего сайта -->
+		<header class="logo">  <!-- Заголовок (header) всего сайта -->
 			<span class="center">ЗАГОЛОВОК ВСЕГО САЙТА</span>
-			<!--	Навигация для десктопа		-->
+			
+      <!--	Навигация для десктопа		-->
 			<nav id="nav-main">
 				<div class="nav-item">Python</div>
 				<div class="nav-item">HTML</div>
@@ -22,52 +26,49 @@
 			</nav>
 			<!--		Иконка открытия меню для смартфона	-->
 			<div id="nav-smart-open">
-				<!--		Во всех полосках неразрывный пробел	-->
+				<!-- Во всех полосках неразрывный пробел	-->
 				<div class="string">&nbsp;</div>
 				<div class="string">&nbsp;</div>
 				<div class="string">&nbsp;</div>
 			</div>
 			<!--		Mеню для смартфона	
 			<nav id="nav-smart">
-
-			</nav>-->
+			</nav> -->
 		</header>
-		<main>  <!-- Главная часть сайта: содержит 2-е колонки -->
+		<main>  <!-- ГЛАВНАЯ ЧАСТЬ САЙТА: содержит 2-е колонки -->
             
-            <!-- =====  Левая колонка =============================================== -->
-			<section class="left">  
-      	<nav class="breadcrumbs">
+			<section class="left"> <!-- =====  ЛЕВАЯ КОЛОНКА ========================= -->
+        
+      	<nav class="breadcrumbs"> <!-- НАВИГАЦИЯ. Хлебные крошки -->
       	    <a href="#">LEVEL0 /</a>
       	    <a href="#"> / LEVEL1 /</a>
       	    <span>/ Название статьи и не ссылка.</span>
-      	</nav>
-				<!--		Якорь для перехода на верх страницы		-->
-				<div id="page-up"></div>
-				
-				<!-- ==== 2024 Контейнер ОГЛАВЛЕНИЯ СТРАНИЦЫ ===== -->
-					<!-- Контейнер для пунктов ОГЛАВЛЕНИЯ.	-->
-					<nav id="toc-page" class="nav-position nav-decor">
-						<!-- Заголовок оглавления с якорем на верх страницы	-->
-          	<h4 id="toc-h4">
-							<span class="triangle-top"></span>
-							<!--	Ссылка ПОКА никуда не ведет, 	-->
-							<a href="#page-up">Оглавление страницы:</a>
-						</h4> <!-- Якорь на самый ввех страницы -->
-          	<!-- Нумерованный список для добавления строк списка из js -->
-						<ol id="toc-ol" class="list-1"> 
-          	</ol>
-					<!-- Контейнер для стрелки вних	-->
-					</nav>
-        	<div id="toc-small" class="nav-position  nav-decor">
-          	<span>&nbsp;</span>  <!-- Неразрывный пробел. Чтобы курсор был виден и в диве, а не только на стрелке -->
-          	<span class="triangle-down"></span>
-        	</div>
-        <!--   КОНЕЦ ОГЛАВЛЕНИЯ СТРАНИЦЫ     -->
+      	</nav> <!-- Конец НАВИГАЦИЯ. Хлебные крошки -->
 
-				<article>  <!-- Статья -->
+        <div id="page-up"></div> <!--		Якорь для перехода на верх страницы		-->
+				
+				<nav id="toc-page" class="nav-position nav-decor"> <!-- ВЫДАЮЩЕЕ МЕНЮ СТРАНИЦЫ -->
+        	<h4 id="toc-h4"><!-- Заголовок оглавления с якорем на верх страницы	-->
+						<span class="triangle-top"></span>
+						<!--	Ссылка ПОКА никуда не ведет, 	-->
+						<a href="#page-up">Оглавление страницы:</a>
+					</h4> <!-- Якорь на самый ввех страницы -->
+        	<!-- Нумерованный список для добавления строк списка из js -->
+					<ol id="toc-ol" class="list-1"> 
+        	</ol>
+				</nav>
+				<!-- Контейнер для стрелки вних	-->	
+        <div id="toc-small" class="nav-position  nav-decor"> 
+        	<span>&nbsp;</span> <!-- Неразрывный пробел. Чтобы курсор был виден и в диве, 
+                              а не только на стрелке -->
+        	<span class="triangle-down"></span>
+        </div>
+        <!--   ВЫДАЮЩЕЕ МЕНЮ СТРАНИЦЫ      -->
+
+				<article>  <!-- СТАТЬЯ -->
 					
 					<header>  <!-- Заголовок статьи -->
-					    <h1> РУБРИКАЦИЯ СТАТЬИ НА ВЕБ-СТРАНИЦЕ.</h1>
+					    <h1> КАЛЬКУЛЯТОР распределения чаевых между сотрудниками.</h1>
 					</header>
           
           <!-- Раздел статьи -->
