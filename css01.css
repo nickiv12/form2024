@@ -1,9 +1,9 @@
   /* 0. ----  Базовые стили для ВСЕГО сайта ----  */
 html {
   box-sizing: border-box; /* ширина и высота = content+border+padding. */
-    font-family: "Times New Roman", serif;
-/*  font-family: Arial,"Helvetica CY", "Nimbus Sans L",  sans-serif;*/
-    font-size: 18px;  /* Базовый размер шрифта */
+    /* font-family: "Times New Roman", serif; */
+ font-family: Arial,"Helvetica CY", "Nimbus Sans L",  sans-serif;
+    font-size: 14px;  /* Базовый размер шрифта */
 /*  line-height: 1.4;  Межстрочный интервал */
 
 }
@@ -282,7 +282,7 @@ h3.subpart::before {
 	 .right { display: none; }  /* Убираем правую колонку */
 	 #nav-main { display: none;} /* Убыираем большую навигацию */	 
 	 #nav-smart-open { display: flex;}
-	 html {font-size: 16px;}   /* Уменьшаю размер основного шрифта с 18 до 16  */
+	 html {font-size: 14px;}   /* Уменьшаю размер основного шрифта с 18 до 16  */
 	/* Позиция оглавления для одной колонки */
 	 #toc-page, #toc-small { right: 3%; }  
 }  /* --- КОНЕЦ @media */
